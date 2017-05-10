@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --port 3001 --hot --inline",
-    "build": "webpack -p --progress"
+    "build": "webpack -p --progress",
+    "test": "karma start"
   },
   "author": "Pavel Kuznetsov",
   "license": "MIT",
@@ -16,7 +17,15 @@
     "css-loader": "^0.21.0",
     "es6-promise": "^3.0.2",
     "file-loader": "^0.11.1",
+    "jasmine": "^2.2.1",
+    "jasmine-core": "^2.2.0",
     "json-loader": "^0.5.4",
+    "karma": "^0.13.2",
+    "karma-es6-shim": "^1.0.0",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-promise": "^0.1.0",
+    "karma-webpack": "^1.6.0",
     "node-sass": "^3.3.3",
     "postcss-loader": "^0.7.0",
     "sass-loader": "^3.0.0",

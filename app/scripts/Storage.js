@@ -37,6 +37,7 @@ const getData = () => {
         dataSource.data = JSON.parse(parents);
     } else {
         dataSource.data = initialDataSources.data;
+        console.log()
         localStorage.setItem("dataSource", JSON.stringify(dataSource.data));
     }
     return dataSource.data;

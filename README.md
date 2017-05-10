@@ -6,5 +6,8 @@
 
 it includes hot module replacement
 
+## Tests
+`npm test`
+
 ### About project
 See "About" tab.
