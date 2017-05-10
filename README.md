@@ -1,3 +1,6 @@
+# Demo
+[https://paulsmith220.github.io/OffersTestProject/](https://paulsmith220.github.io/OffersTestProject/)
+
 # Usage
 1) Clear your localStorage to reset app storage
 
