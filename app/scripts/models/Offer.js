@@ -80,7 +80,7 @@ export default class Offer {
         let template = document.getElementById("dialogContentTemplate").innerHTML;
         this._dialogView = document.createElement("div");
         this.getDetails().then(details => {
-            console.log(details);
+
             this._dialogView.innerHTML = fillTemplate(template, Object.assign(
                 {
                     id: this.id,
@@ -106,16 +106,11 @@ export default class Offer {
             // Set change behaviour
             let inputs = document.querySelectorAll("#dialog form input, #dialog form textarea");
             let saveBtn = document.querySelector(".mdl-dialog__actions .save");
-            [].forEach.call(inputs, (input) => {
-                input.addEventListener("change", () => {
-                    saveBtn.disabled = false;
-                });
-            });
-
-
-            saveBtn.addEventListener("click", this.updateData.bind(this));
-
-        })
+            let saveBtnClone = saveBtn.cloneNode(true);
+            saveBtn.parentNode.replaceChild(saveBtnClone, saveBtn);
+            saveBtnClone.addEventListener("click", this.updateData.bind(this));
+            console.log("Modal:", this);
+        });
     }
 
     showInDialog() {

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 dialog.classList.remove("dissapear");
                 dialog.classList.remove("flip");
             }, 250);
-        }, 2000);
+        }, 500);
 
     };
 
@@ -64,7 +64,6 @@ const initDialog = (node) => {
         dialog.dataset["ready"] = true;
     }
 
-    dialog.querySelector("button.save").disabled = true;
 
     if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);

@@ -43,7 +43,6 @@ export default class DataService {
     }
 
     getDetails(offer) {
-        console.info(this.detailsDataSource);
         return this.detailsDataSource.filter(item => item.id === offer.id)[0];
     }
 
@@ -85,7 +84,7 @@ export default class DataService {
     }
 
     updateItem(offer) {
-        console.info(offer);
+        console.info("Updating: ",offer);
         componentHandler.upgradeDom();
 
         // Update in storages

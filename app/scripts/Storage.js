@@ -26,7 +26,6 @@ const getData = () => {
     let parents = localStorage.getItem("dataSource");
     if (parents != null) {
         dataSource.data = JSON.parse(parents);
-        console.log(dataSource.data);
     } else {
         dataSource.data = initialDataSources.data;
         localStorage.setItem("dataSource", JSON.stringify(dataSource.data));
