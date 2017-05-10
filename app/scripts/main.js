@@ -1,7 +1,8 @@
 import DataService from "./DataService";
 import "../styles/styles.scss";
+require('file?name=[name].[ext]!../index.html');
 
-
+// Create a data-management service
 const dataService = new DataService();
 let $offersContainer = null;
 let dialog = null;
@@ -15,12 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Loading data
     $offersContainer = document.getElementById("overview");
     dataService.loadList().then(data => {
-
         $offersContainer.innerHTML = "";
         dataService.offers.forEach(item => {
             item.domNode = item.getNode();
             $offersContainer.appendChild(item.domNode);
-
         });
 
         componentHandler.upgradeDom();
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     dataService.onUpdate = () => {
         dialog.classList.add("flip");
         setTimeout(()=>{
-            //dialog.close();
             dialog.classList.add("dissapear");
             setTimeout(()=>{
                 if (dialog.open) {
@@ -63,7 +61,6 @@ const initDialog = (node) => {
     } else {
         dialog.dataset["ready"] = true;
     }
-
 
     if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);

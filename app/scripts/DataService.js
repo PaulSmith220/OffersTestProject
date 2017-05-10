@@ -5,6 +5,9 @@ import Offer from "./models/Offer";
 import OfferProperties from "./models/OfferProperties";
 import Storage from "./Storage";
 
+/*
+ * Manages data, creates\removes\updates offers, simulates fetch-requests
+ */
 export default class DataService {
     constructor() {
         this.contentType = null;
@@ -18,6 +21,9 @@ export default class DataService {
         window.ds = this;
     }
 
+    /*
+     * "Loads" data from storage.
+     */
     loadList() {
         // Simulate fetching data from server
         return new Promise((resolve, reject) => {
@@ -33,7 +39,7 @@ export default class DataService {
 
                 setTimeout(()=>{
                     resolve(this.offers);
-                }, 200);
+                }, 1000);
 
 
             } catch(e) {
@@ -42,12 +48,20 @@ export default class DataService {
         });
     }
 
+    /*
+     * Simulates GET-request to get child details by id
+     * @param offer {Offer} - offer, to which we retreiving details
+     */
     getDetails(offer) {
         return this.detailsDataSource.filter(item => item.id === offer.id)[0];
     }
 
+    /*
+     * Adds new blank offer to list
+     */
     addItem() {
         let offer = new Offer({
+            // In a real app, it could be a POST-request for object-create here, that will return new id
             id: this.generateGUID(),
             createdAt: (new Date())
         });
@@ -59,6 +73,10 @@ export default class DataService {
         return offer;
     }
 
+    /*
+     * Removes offer from the list, also simulates removing from the Database
+     * @param offer {Offer} - Offer we need to remove
+     */
     removeItem(offer) {
         offer.domNode.remove();
         for (let i = 0; i < this.offers.length; i++) {
@@ -68,6 +86,7 @@ export default class DataService {
             }
         }
 
+        // It's just a mock instead of a real DELETE-request
         for (let i = 0; i < this.dataSource.offers.length; i++) {
             if (this.dataSource.offers[i].id === offer.id) {
                 this.dataSource.offers.splice(i, 1);
@@ -81,13 +100,17 @@ export default class DataService {
                 break;
             }
         }
+
+        Storage.saveData(this.dataSource, this.detailsDataSource);
     }
 
+    /*
+     * Updates offer info after user's editing
+     * @param offer {Offer} - Updated offer
+     */
     updateItem(offer) {
-        console.info("Updating: ",offer);
-        componentHandler.upgradeDom();
-
         // Update in storages
+        // It's just a mock instead of a real PUT-request
         let dataSourceItem = this.dataSource.offers.filter(item => item.id === offer.id)[0];
         if (dataSourceItem) {
             let index = this.dataSource.offers.indexOf(dataSourceItem);
@@ -106,6 +129,7 @@ export default class DataService {
                 )
             ];
         } else {
+            // We should add details to our "Database" for the new items
             this.detailsDataSource.unshift({
                 id: offer.id,
                 createdAt: offer.createdAt,
@@ -121,12 +145,19 @@ export default class DataService {
         }
     }
 
+    /*
+     * Set instance-methods for offers, same as <div onClick={this.onClick}> in React
+     * @param offer {Offer} - offer we need to set methods to
+     */
     setOfferCallbacks(offer) {
         offer.loadDetails = this.getDetails.bind(this);
         offer.remove = this.removeItem.bind(this);
         offer.onUpdate = this.updateItem.bind(this);
     }
 
+    /*
+     * Generates GUID for new offers
+     */
     generateGUID() {
         let s4 = () => {
             return Math.floor((1 + Math.random()) * 0x10000)

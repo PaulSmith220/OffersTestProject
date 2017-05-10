@@ -5,6 +5,17 @@
   -o-animation: appear 0.3s ease-out;
   animation: appear 0.3s ease-out;
 
+  .remove-button {
+    background: #ff4081;
+    color: #fff;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    line-height: 47px;
+    text-align: center;
+  }
+
   .card-item__image {
     text-align: center;
     padding: 15px;
@@ -182,6 +193,96 @@
       min-height: 150px;
       max-height: 200px;
       width: auto;
+    }
+  }
+
+  @media all and (max-height: 800px) {
+
+    .dialog-container {
+      padding-bottom: 40px;
+      box-sizing: border-box;
+    }
+
+    .mdl-dialog__content {
+      //padding-bottom: 50px;
+    }
+
+    .mdl-dialog__actions {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      padding:0;
+      text-align: right;
+      background: #fff;
+      border-top: 1px solid #ddd;
+    }
+  }
+
+  @media all and (max-width: 700px) {
+    padding: 0;
+
+    .dialog-wrapper {
+      width: 95vw;
+      height: 95vh;
+      top: 2.5vh;
+      left: 2.5vw;
+
+      -webkit-transform: none;
+      -moz-transform: none;
+      -ms-transform: none;
+      -o-transform: none;
+      transform: none;
+
+      .dialog__content {
+
+        table {
+          display: block;
+          box-shadow: none;
+          border: none;
+
+          tbody {
+            display: block;
+          }
+
+          tr {
+            display: block;
+            white-space: normal;
+            height: auto;
+            border: none;
+            margin-bottom: 20px;
+            text-align: right;
+
+            td {
+              display: inline-block;
+              box-sizing: border-box;
+              border: none;
+              padding: 0;
+              height: auto;
+
+              &:first-of-type{
+                float: left;
+              }
+
+              input, textarea {
+                font-size: 16px;
+                text-align: left;
+              }
+
+              textarea {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    &.flip {
+      .dialog-wrapper {
+        transform: rotateY(180deg);
+      }
     }
   }
 

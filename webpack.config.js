@@ -17,12 +17,12 @@ module.exports = {
 
     output: {
         path: path.join(__dirname, "dist"),
-        filename: 'js/app.js'
+        filename: 'scripts/app.js'
     },
 
     plugins: [
         // Specify the resulting CSS filename
-        new ExtractTextPlugin('css/app.css'),
+        new ExtractTextPlugin('styles/app.css'),
         new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/])
 
     ],

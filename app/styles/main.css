@@ -84,6 +84,21 @@ html, body {
   z-index: 999;
 }
 
+@media all and (max-width: 1024px){
+  .mdl-demo #add {
+    display: block;
+    position: fixed;
+  }
+}
+
+@media all and (max-width: 480px){
+  .mdl-demo #add {
+    right: 25px;
+    top: auto;
+    bottom: 25px;
+  }
+}
+
 .mdl-demo .mdl-layout__content section:not(:last-of-type) {
   position: relative;
   margin-bottom: 48px;

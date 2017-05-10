@@ -5,23 +5,26 @@ import OfferProperties from "./OfferProperties";
 import * as moment from "moment";
 const defaultImage = require("../../images/main.png");
 
+/** @class Offer */
 export default class Offer {
-    constructor({id = null, properties = null, createdAt = null} = {}, dataActions = {}) {
+    /** @lends Offer */
+     constructor({id = null, properties = null, createdAt = null} = {}) {
         this.id = id;
         this.properties = new OfferProperties(properties);
         this.createdAt = createdAt;
         this._domNode = null;
         this._dialogView = null;
-        this.dataActions = dataActions;
     }
 
+    /*
+     * Simulates details fetching from server
+     */
     getDetails() {
-        // Simulate fetching details from server
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 try {
                     // Simulate details fetching
-                    // normally we will get details by id, but here i'll just search in array
+                    // normally we will get details by id, but here i'm just searching in array
                     let data = this.loadDetails(this);
                     if (data && data.offer[0]) {
                         resolve(new OfferProperties(data.offer[0].properties));
@@ -31,27 +34,40 @@ export default class Offer {
                 } catch(e) {
                     reject(e);
                 }
-            }, 200);
+            }, 1000);
 
         });
     }
 
+    /*
+     * Card DOM Node getter - we should create it before returning
+     */
     get domNode() {
         return this._domNode || this.getNode();
     }
 
+    /*
+     * Card DOM Node setter
+     */
     set domNode(node) {
         this._domNode = node;
     }
 
+    /*
+     * Sets a default image if offer has no image or has a "main.jpg"
+     */
     getImageUrl() {
         return (!this.properties.productImagePointer ||
         !this.properties.productImagePointer.itemName ||
-        this.properties.productImagePointer.itemName == "main.jpg") ? defaultImage : this.properties.productImagePointer.itemName
+        this.properties.productImagePointer.itemName == "main.jpg") ? defaultImage :
+            this.properties.productImagePointer.itemName
     }
 
+    /*
+     * Creates and saves a DOM node for an offer card by filling card template with offer's data
+     * @returns {Node} - a generated DOM-node
+     */
     getNode() {
-
         let template = document.getElementById("cardTemplate").innerHTML;
 
         let node  = document.createElement("div");
@@ -68,19 +84,25 @@ export default class Offer {
             }
         );
         node = node.childNodes[1];
-        node.querySelector(".mdl-card__actions .show-details").addEventListener("click", this.showInDialog.bind(this));
-        node.querySelector(".mdl-menu .show-details").addEventListener("click", this.showInDialog.bind(this));
-        node.querySelector(".mdl-menu .remove").addEventListener("click", () => {
+        node.querySelector(".mdl-card__actions .show-details")
+            .addEventListener("click", this.showInDialog.bind(this));
+        node.querySelector(".remove-button")
+            .addEventListener("click", () => {
             this.remove(this);
         });
         return node;
     }
 
+    /*
+     * Fetches detailed data about offer, creates and saves a DOM node for an offer modal-view
+     * by filling modal template with offer's detailed data and pastes it into container
+     * @param container {DOM node} -
+     * @returns {Node} - a generated DOM-node
+     */
     setModalView(container) {
         let template = document.getElementById("dialogContentTemplate").innerHTML;
         this._dialogView = document.createElement("div");
         this.getDetails().then(details => {
-
             this._dialogView.innerHTML = fillTemplate(template, Object.assign(
                 {
                     id: this.id,
@@ -103,16 +125,16 @@ export default class Offer {
             container.appendChild(this._dialogView);
             componentHandler.upgradeDom();
 
-            // Set change behaviour
-            let inputs = document.querySelectorAll("#dialog form input, #dialog form textarea");
             let saveBtn = document.querySelector(".mdl-dialog__actions .save");
             let saveBtnClone = saveBtn.cloneNode(true);
             saveBtn.parentNode.replaceChild(saveBtnClone, saveBtn);
             saveBtnClone.addEventListener("click", this.updateData.bind(this));
-            console.log("Modal:", this);
         });
     }
 
+    /*
+     * Opens a modal dialog with current offer
+     */
     showInDialog() {
         let dialog = document.querySelector('#dialog');
         dialog.querySelector(".dialog__title").innerHTML = this.properties.name;
@@ -120,10 +142,11 @@ export default class Offer {
         dialogContent.innerHTML = "<div class='spinner'></div>";
         dialog.showModal();
         this.setModalView(dialogContent);
-
-
     }
 
+    /*
+     * Updates offer data with user input and sends it to DataService's callback
+     */
     updateData() {
         const formData = new FormData(document.getElementById("modalForm"));
         for (let key of formData.keys()) {
@@ -141,6 +164,9 @@ export default class Offer {
         this.onUpdate(this);
     }
 
+    /*
+     * Replaces offer's card node with new instance
+     */
     updateDom() {
         let newNode = this.getNode();
         this._domNode.parentNode.replaceChild(newNode, this._domNode);
@@ -149,8 +175,14 @@ export default class Offer {
 }
 
 
+/*
+ * Fills template string with given object's properties
+ * We dont really need a template engine (like mustache or handlebars)
+ * for this project (it will be overkill), so i used my own mini-version of it
+ * @param template {string} - template string
+ * @param object {object} - object with props to paste
+ */
 
-// we dont really need a template engine for this project, so i used my own mini-version of it
 const fillTemplate = (template, object) => {
     let result = template;
     for (let key in object) {

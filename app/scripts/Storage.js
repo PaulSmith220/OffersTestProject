@@ -12,6 +12,11 @@ const dataSource = {
     detailsData: null,
 };
 
+/*
+ * Saves data to localStorage
+ * @param {object} modified - parent.json
+ * @param {array} detailsData - modified children.json
+ */
 const saveData = (data, detailsData) => {
     return new Promise((resolve, reject) => {
         dataSource.data = data;
@@ -22,6 +27,10 @@ const saveData = (data, detailsData) => {
     });
 };
 
+/*
+ * Returns parent-data from localStorage if it exists, else from json-file
+ * In a real project, it should be a GET-request here
+ */
 const getData = () => {
     let parents = localStorage.getItem("dataSource");
     if (parents != null) {
@@ -33,6 +42,10 @@ const getData = () => {
     return dataSource.data;
 };
 
+/*
+ * Returns children-data from localStorage if it exists, else from json-file
+ * In a real project, it should be a GET-request with child-id as a parameter
+ */
 const getDetails = () => {
     let children = localStorage.getItem("detailsDataSource");
     if (children != null) {
