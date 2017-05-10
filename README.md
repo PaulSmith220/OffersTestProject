@@ -1,3 +1,8 @@
+# Usage
+1) Clear your localStorage to reset app storage
+
+2) App has styles for both tablets and mobile, so feel free to test it
+
 ## Build
 `npm run build`
 
