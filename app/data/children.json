@@ -1,0 +1,61 @@
+[{
+   "contentType":null,
+   "id":"c482b0fb-ca01-4200-ba10-61a16f8597ae",
+   "properties":null,
+   "createdAt":null,
+   "offer":[
+      {
+         "properties":{
+            "name":"Acer computer",
+            "category":"computers ",
+            "description":"he Extensa provides up to 7 hours1 of unplugged, on-the-go power, keeping you connected and productive all day. Access files on all your devices with AcerCloud. Carry with comfort: The Acer Extensa is one of the slimmest laptops in its class and features an easy-grip design.",
+            "productName":"Acer all-in-one",
+            "retailerUrl":"http://www.dell.com/laptop1",
+            "productBrand":"Acer",
+            "reducedPrice":{
+               "amount":888,
+               "currencyCode":"USD"
+            },
+            "originalPrice":{
+               "amount":999,
+               "currencyCode":"USD"
+            },
+            "productImagePointer":{
+               "itemName":"https://static.acer.com/up/Resource/Acer/Laptops/Aspire_V_Nitro/Images/20170213/As_VN7-793G_eye_preview.png"
+            }
+         },
+         "createdAt":"2017-03-07T17:12:21.177Z"
+      }
+   ]
+},
+   {
+      "contentType":null,
+      "id":"c482b234-3a01-4500-ba10-61a16f8597ae",
+      "properties":null,
+      "createdAt":null,
+      "offer":[
+         {
+            "properties":{
+               "name":"Apple computer",
+               "category":"computers ",
+               "description":"he Extensa provides up to 7 hours1 of unplugged, on-the-go power, keeping you connected and productive all day. Access files on all your devices with AcerCloud. Carry with comfort: The Acer Extensa is one of the slimmest laptops in its class and features an easy-grip design.",
+               "productName":"Apple computer itself",
+               "retailerUrl":"http://www.apple.com/laptop",
+               "productBrand":"Apple",
+               "reducedPrice":{
+                  "amount":1999,
+                  "currencyCode":"USD"
+               },
+               "originalPrice":{
+                  "amount":1998,
+                  "currencyCode":"USD"
+               },
+               "productImagePointer":{
+                  "itemName":"https://images.apple.com/v/mac/home/v/images/home/macos_finder_icloud_large.png"
+               }
+            },
+            "createdAt":"2017-02-07T17:12:21.177Z"
+         }
+      ]
+   }
+]
